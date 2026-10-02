@@ -1,0 +1,1 @@
+.nova-animated-wallpaper{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}.desktop>.wallpaper-glow{z-index:1}.desktop-icons,.window-layer,.nova-taskbar-v3,.start-menu,.notification-center,.profile-panel,.widgets-panel{z-index:2}.desktop:has(.nova-animated-wallpaper)::after{opacity:.10}

@@ -1,0 +1,27 @@
+NOVA WATCH — DEVELOPER MOVIE CATALOG
+
+Add movies to data/movies.json (server catalog) or data/movies.js (client catalog).
+No public movie-upload UI is provided.
+
+You can paste a full authorized iframe directly into the "embed" field. Nova automatically extracts the iframe src URL and uses that URL for the movie player.
+
+Example:
+{
+  "id": "my-movie",
+  "title": "My Movie",
+  "poster": "/assets/posters/my-movie.jpg",
+  "genre": "Action",
+  "year": 2026,
+  "description": "Optional description",
+  "embed": "<iframe src=\"https://your-authorized-provider.example/embed/movie/123\" width=\"100%\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"></iframe>"
+}
+
+You may also use "iframe" instead of "embed", or use "embedUrl" with either a plain URL or a full iframe.
+
+Nova Watch then:
+1. extracts the iframe src
+2. creates the movie card from title/poster/metadata
+3. opens the extracted source inside Nova Watch when Watch is clicked
+4. keeps the movie inside the Nova Watch player instead of opening a new tab
+
+Use only sources you are authorized to embed and that permit iframe playback. Browser iframe embedding is controlled by the source site's policies.
