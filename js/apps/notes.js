@@ -1,0 +1,3 @@
+window.NotesApp={id:"notes",name:"Notes",description:"A quick local scratchpad",icon:"assets/icons/neon/notes.png",width:650,height:500,mount(body){
+  body.innerHTML=`<div class="notes"><div class="notes-bar"><strong>Quick Notes</strong><span id="saved">Saved locally</span></div><textarea placeholder="Start typing..."></textarea></div>`;const ta=body.querySelector("textarea"),saved=body.querySelector("#saved");ta.value=Store.load("notes","");let timer;ta.addEventListener("input",()=>{clearTimeout(timer);timer=setTimeout(()=>{Store.save("notes",ta.value);saved.textContent="Saved just now"},250)});return()=>clearTimeout(timer)
+}};

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>Nova OS</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/nova-favicon.svg">
+  <script>window.NOVA_CORS_PROXY_URL="/proxy";</script>
+  <script src="js/cors-proxy.js"></script>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/desktop-context-menu.css">
+  <link rel="stylesheet" href="css/windows.css">
+  <link rel="stylesheet" href="css/taskbar.css">
+  <link rel="stylesheet" href="css/apps.css">
+  <link rel="stylesheet" href="css/movies.css">
+  <script src="data/games.js"></script>
+  <script src="js/game-url-addon.js"></script>
+  <link rel="stylesheet" href="css/nova-taskbar.css">
+<link rel="stylesheet" href="css/nova-wallpapers.css">
+<link rel="stylesheet" href="css/nova-global-overflow.css">
+<link rel="stylesheet" href="css/movie-quality.css">
+  <link rel="stylesheet" href="css/nova-cloud.css">
+  <link rel="stylesheet" href="css/animated-wallpapers.css">
+  <link rel="stylesheet" href="css/auth-v2.css">
+  <link rel="stylesheet" href="css/update-v2.css">
+  <link rel="stylesheet" href="css/developer-panel.css">
+<link rel="stylesheet" href="css/bible.css">
+</head>
+<body>
+  <section id="auth-screen" class="auth-screen">
+    <div class="nova-login-wallpaper" aria-hidden="true"><div class="nova-login-orb orb-a"></div><div class="nova-login-orb orb-b"></div><div class="nova-login-glow"></div></div>
+    <div class="nova-login-topbar">
+      <div class="nova-login-brand"><span class="nova-login-mark">✦</span><span>Nova OS</span></div>
+      <div class="nova-login-server"><span class="server-dot"></span><span>Nova Server</span><strong id="server-status" class="server-status checking"><span class="server-dot"></span><strong>Checking server...</strong></strong></div>
+    </div>
+    <div class="nova-login-center">
+      <div class="nova-login-card">
+        <div class="nova-login-avatar" aria-hidden="true">✦</div>
+        <div class="nova-login-userline"><span class="eyebrow">NOVA ACCOUNT</span></div>
+        <div class="auth-copy"><h2 id="auth-title">Welcome back</h2><p id="auth-subtitle">Sign in to continue to your Nova desktop.</p></div>
+        <form id="auth-form" class="auth-form"><input type="hidden" id="auth-mode" value="login"><label>Username<input id="auth-user" autocomplete="username" placeholder="Username" required></label><label>Password<input id="auth-pass" type="password" autocomplete="current-password" placeholder="Password" required></label><div id="auth-error" class="auth-error"></div><button type="submit" id="auth-submit" class="auth-primary">Sign in <span>→</span></button></form>
+        <button type="button" id="auth-switch" class="auth-switch">Create a new account</button>
+        <div class="auth-divider"><span>or</span></div>
+        <div class="auth-alt-actions"><button type="button" id="guest-button" class="auth-secondary">Browse as guest</button><button type="button" id="dev-bypass" class="auth-secondary">Developer bypass</button></div>
+        <small id="offline-note" class="auth-note"></small>
+        <div class="auth-v2-footer"><span>🔒 Your password is securely hashed on the Nova server.</span><span>Guest mode works for offline-friendly features.</span></div>
+      </div>
+    </div>
+    <div class="nova-login-bottom"><span>Nova OS</span><span>Secure sign-in</span><span id="login-time"></span></div>
+  </section>
+  <main id="desktop" class="desktop">
+    <div class="wallpaper-glow"></div>
+    <section id="desktop-icons" class="desktop-icons" aria-label="Desktop apps"></section>
+    <section id="window-layer" class="window-layer" aria-label="Open applications"></section>
+
+    <aside id="start-menu" class="start-menu hidden">
+      <div class="start-header">
+        <div><strong id="start-os-name">Nova OS</strong><span>Applications</span></div>
+        <button id="start-close" class="icon-button" aria-label="Close">×</button>
+      </div>
+      <label class="start-search"><span>⌕</span><input id="app-search" type="search" placeholder="Search apps"></label>
+      <div id="start-apps" class="start-apps"></div>
+    </aside>
+
+    <aside id="notification-center" class="notification-center hidden" aria-label="Notification center"></aside>
+    <aside id="profile-panel" class="profile-panel hidden" aria-label="User profile"></aside>
+    <aside id="nova-update-log" class="nova-update-log hidden" aria-label="Nova OS update log"></aside>
+
+    <footer id="taskbar" class="taskbar nova-taskbar-v3" aria-label="Nova taskbar">
+      <div class="taskbar-cluster taskbar-left">
+        <button id="profile-chip" class="tb-profile" title="Profile" aria-label="Profile"><span class="tb-avatar">✦</span><span class="tb-profile-copy"><strong id="profile-name">Nova</strong><small>Online</small></span></button>
+        <button id="start-button" class="tb-icon tb-start" title="Start" aria-label="Start"><span>✦</span></button>
+        <button id="search-button" class="tb-search" title="Search apps" aria-label="Search"><span class="tb-search-icon">⌕</span><span>Search</span><kbd>Ctrl&nbsp;Space</kbd></button>
+      </div>
+      <div class="taskbar-center">
+        <div id="task-apps" class="task-apps" aria-label="Open apps"></div>
+      </div>
+      <div class="taskbar-cluster taskbar-right">
+        <button id="widgets-button" class="tb-icon tb-quick" title="Widgets" aria-label="Widgets">▦</button>
+        <button id="bored-button" class="tb-icon tb-quick" title="I'm Bored" aria-label="I'm Bored">✦</button>
+        <button id="notification-button" class="tb-icon tb-quick tb-notify" title="Notifications" aria-label="Notifications">♢<span id="notification-badge" class="notification-badge hidden">0</span></button>
+        <button id="fullscreen-button" class="tb-icon tb-quick tb-fullscreen" title="Fullscreen" aria-label="Fullscreen">⛶</button><button id="control-center-button" class="tb-icon tb-quick" title="Control Center" aria-label="Control Center">⚙</button><button id="update-log-button" class="tb-icon tb-quick tb-updates" title="Update Log" aria-label="Update Log">✦</button>
+        <div class="tb-server-status checking" id="taskbar-server-status" title="Nova server status"><span class="tb-server-dot"></span><span class="tb-server-label">Checking</span></div><div class="tb-live" id="active-players" title="Active Nova players">● -- online</div><button id="clock" class="tb-clock" title="Clock" aria-label="Clock"></button>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/file-access.js"></script>
+  <script src="js/windows.js"></script>
+  <script src="js/screensaver.js"></script>
+  <script src="js/nova-os-shell.js?v=20260927"></script>
+  <script src="js/taskbar.js"></script>
+  <script src="js/start-menu.js?v=20260927-access-control-1"></script>
+  <script src="js/desktop-features.js"></script>
+  <script src="js/recommendations.js"></script>
+  <script src="js/widgets.js"></script>
+  <script src="js/apps/cursor-studio.js"></script>
+  <script src="js/apps/calculator.js"></script>
+    <script src="js/apps/settings.js"></script>
+  <script src="js/apps/files.js"></script>
+  <script src="js/apps/notes.js"></script>
+  <script src="js/apps/music.js?v=20260926-music-folder"></script>
+  <script src="js/apps/beat-lab.js?v=20260926-beatlab2"></script>
+  <script src="js/apps/games.js"></script>
+  <script src="data/movies.js?v=20260928"></script>
+  <script src="data/shows.js?v=20260929"></script>
+  <script src="js/apps/movies.js?v=20260928-movie-details-v1"></script>
+  <script src="js/update.js"></script>
+  <script src="js/cloud.js"></script>
+  <script src="js/animated-wallpapers.js"></script>
+  <script src="js/update-log.js"></script>
+  <script src="js/presence.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/apps/clock.js"></script>
+  <script src="js/apps/timer.js"></script>
+  <script src="js/apps/meet.js"></script>
+  <script src="js/apps/chat.js"></script>
+  <script src="js/apps/calendar.js"></script>
+  <script src="js/apps/terminal.js"></script>
+  <script src="js/apps/gallery.js"></script>
+  <script src="js/apps/nova-ai.js"></script>
+  <script src="js/apps/google-classroom.js"></script>
+  <script src="js/apps/bible.js"></script>
+  <script src="js/apps/live-wallpaper.js"></script>
+  <script src="js/apps/tiktok.js"></script>
+  <script src="js/apps/nova-cloud-gaming.js"></script>
+  <script src="js/developer-panel.js"></script>
+  <script src="js/apps/appstore.js"></script>
+  <script src="js/companion.js"></script>
+  <script src="js/desktop-layout.js?v=20260926-snapgrid"></script>
+  <script src="js/desktop-context-menu.js"></script>
+  <script src="js/nova-downloads.js?v=20260927"></script>
+  <script src="js/os.js?v=20260927-access-control-1"></script>
+  <script>window.NovaAuth.boot().catch(function(error){console.error("Nova auth boot failed",error);var e=document.getElementById("auth-error");if(e)e.textContent="Nova could not initialize the login system. Please reload the page.";});</script>
+<script src="js/wallpapers.js"></script>
+<script>window.NovaScreensaver?.init();</script>
+<script src="js/movie-quality.js"></script>
+</body>
+</html>

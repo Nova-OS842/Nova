@@ -1,0 +1,78 @@
+window.SettingsApp={id:"settings",name:"Settings",description:"Clean controls for Nova OS",icon:"assets/icons/neon/settings.png",width:820,height:620,mount(body){
+  const s=Store.getSettings();
+  body.innerHTML=`<div class="settings-app">
+    <aside class="settings-sidebar">
+      <div class="settings-brand"><span>⚙</span><div><strong>Settings</strong><small>Nova OS</small></div></div>
+      <button class="settings-nav active" data-section="appearance">◐ <span>Appearance</span></button>
+      <button class="settings-nav" data-section="system">▣ <span>System</span></button>
+      <button class="settings-nav" data-section="data">◫ <span>Data & Storage</span></button><button class="settings-nav" data-section="wallpapers">▣ <span>Wallpapers</span></button><button class="settings-nav" data-section="experimental">✦ <span>Experimental</span></button><button class="settings-nav" data-section="companion">🧑‍🚀 <span>Companion</span></button><button class="settings-nav" data-section="screensaver">✦ <span>Screensaver</span></button><button class="settings-nav" data-section="tab-branding">▣ <span>Tab branding</span></button>
+    </aside>
+    <main class="settings-main">
+      <section class="settings-section active" data-section="appearance"><div class="settings-title"><h1>Appearance</h1><p>Make Nova OS look and feel the way you want.</p></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Nova theme</h3><p>Change Nova's colors and interface mood. Themes never change your wallpaper.</p></div><select id="theme">
+          <option value="midnight">🌌 Midnight</option><option value="ocean">🌊 Ocean</option><option value="forest">🌲 Forest</option><option value="sunset">🌅 Sunset</option><option value="neon">⚡ Neon</option><option value="soft">🌸 Soft</option><option value="minimal">🖤 Minimal</option>
+        </select></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Accent color</h3><p>Used for buttons, highlights and active controls.</p></div><input id="accent" type="color"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Taskbar transparency</h3><p>Adjust how much of the wallpaper shows through.</p></div><div class="settings-inline"><input id="alpha" type="range" min=".45" max=".98" step=".01"><strong id="alphaV"></strong></div></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Wallpaper</h3><p>Pick a desktop background.</p></div><select id="wallpaper"><option value="default">Midnight Grid</option><option value="aurora">Aurora</option><option value="plain">Plain</option><option value="animated-aurora">✨ Aurora Flow</option><option value="animated-neon">💠 Neon Grid</option><option value="animated-stars">🌌 Cosmic Drift</option><option value="animated-plasma">🪩 Plasma Pulse</option><option value="animated-ocean">🌊 Ocean Pulse</option><option value="custom">Custom wallpaper</option></select></div></div><div class="settings-card settings-custom-wallpaper"><div><h3>Custom wallpaper</h3><p>Choose an image from this device. Nova compresses it before saving.</p></div><input id="custom-wallpaper" type="file" accept="image/*"></div>
+      </section>
+      <section class="settings-section" data-section="system"><div class="settings-title"><h1>System</h1><p>General Nova OS behavior and preferences.</p></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Operating system name</h3><p>This appears in the Start menu and window title.</p></div><input id="osname" type="text"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>24-hour clock</h3><p>Use 14:30 instead of 2:30 PM.</p></div><input id="clock24" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Animations</h3><p>Enable window and interface transitions.</p></div><input id="animations" type="checkbox"></div></div>
+      </section>
+      <section class="settings-section" data-section="data"><div class="settings-title"><h1>Data & Storage</h1><p>Manage information saved by Nova OS in this browser.</p></div>
+        <div class="settings-card"><div class="storage-stat"><span>Local OS files</span><strong id="file-count"></strong></div><div class="storage-bar"><span id="storage-bar-fill"></span></div><p class="settings-note">Files are stored locally in your browser. They are not real Windows folders.</p></div>
+        <div class="settings-card settings-danger-card"><div><h3>Reset Nova OS</h3><p>Restore settings and the built-in workspace to their defaults.</p></div><button class="app-button danger" id="reset">Reset everything</button></div>
+      </section>
+      <section class="settings-section" data-section="wallpapers"><div class="settings-title"><h1>Wallpapers</h1><p>Choose Nova’s built-in motion backgrounds or manage your own MP4 live wallpapers.</p></div><div class="settings-card settings-hero-card"><div class="settings-hero-icon">▶</div><div><span class="settings-kicker">NOVA LIVE WALLPAPERS</span><h3>Your video, your desktop</h3><p>Install Nova Live Wallpapers from Nova Shop to import MP4 videos. The original file is kept locally and played at full source quality in a looping background.</p></div></div><div class="settings-card settings-info-card"><div><h3>Open Live Wallpapers</h3><p>Import, preview, activate, or remove your personal video wallpapers.</p></div><button class="app-button" id="open-live-wallpapers">Open app</button></div></section>
+      <section class="settings-section" data-section="experimental"><div class="settings-title"><h1>Experimental</h1><p>Try features that are still being tested in Nova OS.</p></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Custom cursor</h3><p>Use your selected Nova Cursor Studio pointer across the desktop.</p></div><button class="app-button" id="open-cursors">Open Cursor Studio</button></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Desktop widgets</h3><p>Enable the experimental widget system. Widgets only work when their app is installed.</p></div><input id="widgets-enabled" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Glass effects</h3><p>Use stronger blur and translucent panels. Turn this off on slower devices.</p></div><input id="glass-effects" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Experimental glow</h3><p>Add a subtle animated accent glow to Nova controls.</p></div><input id="experimental-glow" type="checkbox"></div></div>
+        <div class="settings-card settings-danger-card"><div><h3>Reset experimental features</h3><p>Turn experimental options back to their defaults.</p></div><button class="app-button" id="reset-experimental">Reset</button></div>
+      </section>
+      <section class="settings-section" data-section="companion"><div class="settings-title"><h1>Nova Companion</h1><p>Customize the little character that lives inside your Nova desktop.</p></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Show Nova</h3><p>Keep your companion visible on the desktop.</p></div><input id="companion-enabled" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Companion messages</h3><p>Allow Nova to react, celebrate and occasionally make suggestions.</p></div><input id="companion-messages" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Position</h3><p>Choose which side of the desktop Nova hangs out on.</p></div><select id="companion-position"><option value="right">Bottom right</option><option value="left">Bottom left</option></select></div></div>
+        <div class="settings-card settings-danger-card"><div><h3>Open Companion Studio</h3><p>Change Nova's personality, size and reactions.</p></div><button class="app-button" id="open-companion">Customize Nova</button></div>
+      </section>
+      <section class="settings-section" data-section="tab-branding"><div class="settings-title"><h1>Tab branding</h1><p>Customize Nova’s browser tab title and icon. This changes Nova’s tab appearance without pretending to be another website.</p></div><div class="settings-card"><div class="settings-card-title"><div><h3>Tab title</h3><p>Choose the text shown in the browser tab.</p></div><input id="tab-title" type="text" maxlength="60" placeholder="Nova OS"></div></div><div class="settings-card"><div class="settings-card-title"><div><h3>Tab icon</h3><p>Use a direct image URL for Nova’s favicon.</p></div><input id="tab-icon" type="url" placeholder="https://example.com/icon.png"></div></div><div class="settings-card settings-info-card"><div><h3>Apply browser tab branding</h3><p>The Nova site stays the same; only the browser tab title and icon change.</p></div><button class="app-button" id="apply-tab-branding">Apply</button></div></section>
+      <section class="settings-section" data-section="screensaver"><div class="settings-title"><h1>Screensaver</h1><p>Turn the idle desktop into a polished Nova ambient display.</p></div>
+        <div class="settings-card settings-hero-card"><div class="settings-hero-icon">✦</div><div><span class="settings-kicker">NOVA AMBIENT</span><h3>Cosmic Screensaver</h3><p>After you stop using Nova, the desktop fades into a live clock, orbiting Nova mark, particles, and subtle motion.</p></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Enable screensaver</h3><p>Automatically activate the screensaver after inactivity.</p></div><input id="screensaver-enabled" type="checkbox"></div></div>
+        <div class="settings-card"><div class="settings-card-title"><div><h3>Start after</h3><p>Choose how long Nova waits before entering screensaver mode.</p></div><select id="screensaver-delay"><option value="60">1 minute</option><option value="180">3 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option><option value="900">15 minutes</option></select></div></div>
+        <div class="settings-card settings-info-card"><div><h3>Wake instantly</h3><p>Move the mouse, click, touch the screen, or press any key to return to the desktop.</p></div><button class="app-button" id="preview-screensaver">Preview</button></div>
+      </section>
+    </main>
+  </div>`;
+  const q=id=>body.querySelector("#"+id);
+  const tabBrand=Store.load("tab-branding",{title:"Nova OS",icon:""});
+  q("tab-title").value=tabBrand.title||"Nova OS";q("tab-icon").value=tabBrand.icon||"";
+  const applyTabBranding=()=>{const value={title:q("tab-title").value.trim()||"Nova OS",icon:q("tab-icon").value.trim()};Store.save("tab-branding",value);document.title=value.title;let link=document.querySelector("link[data-nova-favicon]");if(!link){link=document.createElement("link");link.rel="icon";link.dataset.novaFavicon="1";document.head.appendChild(link)}if(value.icon)link.href=value.icon;else link.removeAttribute("href");OS.toast("Browser tab branding applied")};
+  q("apply-tab-branding").onclick=applyTabBranding;applyTabBranding();
+  q("theme").value=s.theme;q("accent").value=s.accent;q("alpha").value=s.taskbarAlpha;q("alphaV").textContent=Math.round(s.taskbarAlpha*100)+"%";
+  q("wallpaper").value=s.wallpaper;q("custom-wallpaper").onchange=async e=>{const file=e.target.files?.[0];if(!file)return;if(file.size>15*1024*1024){OS.toast("Choose an image under 15 MB");return}try{const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{const maxW=1920,maxH=1080,scale=Math.min(1,maxW/img.naturalWidth,maxH/img.naturalHeight),c=document.createElement("canvas");c.width=Math.max(1,Math.round(img.naturalWidth*scale));c.height=Math.max(1,Math.round(img.naturalHeight*scale));c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);Store.save("custom-wallpaper",c.toDataURL("image/jpeg",.82));q("wallpaper").value="custom";sync();OS.toast("Custom wallpaper saved")};img.src=url}catch(x){OS.toast("Could not use that image")}};  q("osname").value=s.osName;q("clock24").checked=s.clock24;q("animations").checked=s.animations;
+  const ss=Store.load("screensaver",{enabled:true,delay:180});q("screensaver-enabled").checked=ss.enabled!==false;q("screensaver-delay").value=String(ss.delay||180);
+  q("widgets-enabled").checked=s.experimental?.widgets!==false;q("glass-effects").checked=s.experimental?.glass!==false;q("experimental-glow").checked=s.experimental?.glow===true;
+  const companionState=Store.load("companion",{enabled:true,messages:true,position:"right"});q("companion-enabled").checked=companionState.enabled!==false;q("companion-messages").checked=companionState.messages!==false;q("companion-position").value=companionState.position||"right";
+  const updateStorage=()=>{const n=Store.getFiles();q("file-count").textContent=n.length+" items";q("storage-bar-fill").style.width=Math.min(100,10+n.length*3)+"%"};
+  updateStorage();
+  function sync(){
+    const n=Store.getSettings();n.theme=q("theme").value;n.accent=q("accent").value;n.taskbarAlpha=Number(q("alpha").value);n.wallpaper=q("wallpaper").value;
+    n.osName=q("osname").value.trim()||"Nova OS";n.clock24=q("clock24").checked;n.animations=q("animations").checked;
+    n.experimental={widgets:q("widgets-enabled").checked,glass:q("glass-effects").checked,glow:q("experimental-glow").checked};
+    const companion=Store.load("companion",{});companion.enabled=q("companion-enabled").checked;companion.messages=q("companion-messages").checked;companion.position=q("companion-position").value;Store.save("companion",companion);window.NovaCompanion?.apply();
+    Store.setSettings(n);OS.applySettings();
+  }
+  ["theme","accent","alpha","wallpaper","osname","clock24","animations","widgets-enabled","glass-effects","experimental-glow","companion-enabled","companion-messages","companion-position"].forEach(id=>q(id).addEventListener("input",()=>{if(id==="alpha")q("alphaV").textContent=Math.round(q("alpha").value*100)+"%";sync()}));
+  ["screensaver-enabled","screensaver-delay"].forEach(id=>q(id).addEventListener("input",()=>{const x=Store.load("screensaver",{enabled:true,delay:180});x.enabled=q("screensaver-enabled").checked;x.delay=Number(q("screensaver-delay").value);Store.save("screensaver",x);window.NovaScreensaver?.wake();window.NovaScreensaver?.init()}));
+  q("preview-screensaver").onclick=()=>window.NovaScreensaver?.show();
+  body.querySelectorAll(".settings-nav").forEach(btn=>btn.onclick=()=>{body.querySelectorAll(".settings-nav").forEach(x=>x.classList.remove("active"));body.querySelectorAll(".settings-section").forEach(x=>x.classList.remove("active"));btn.classList.add("active");body.querySelector(`.settings-section[data-section="${btn.dataset.section}"]`).classList.add("active")});
+  q("open-cursors").onclick=()=>OS.launch("cursor");q("open-live-wallpapers").onclick=()=>OS.launch("live-wallpaper");q("open-companion").onclick=()=>window.NovaCompanion?.openPanel();
+  q("reset-experimental").onclick=()=>{const n=Store.getSettings();n.experimental={widgets:true,glass:true,glow:false};Store.setSettings(n);OS.applySettings();q("widgets-enabled").checked=true;q("glass-effects").checked=true;q("experimental-glow").checked=false;OS.toast("Experimental settings reset")};
+  q("reset").onclick=()=>{if(confirm("Reset Nova OS settings and files?")){Store.remove("settings");Store.remove("files");location.reload()}};
+  return()=>{};
+}};

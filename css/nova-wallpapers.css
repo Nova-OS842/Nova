@@ -1,0 +1,14 @@
+
+/* Nova Wallpapers */
+#desktop,.desktop,#os-desktop{
+  background-size:cover !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  background-attachment:fixed !important;
+  overflow:hidden !important;
+}
+.nova-wallpaper-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.nova-wallpaper-card{aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);cursor:pointer;background:#111827;position:relative}
+.nova-wallpaper-card img{width:100%;height:100%;object-fit:cover;display:block}
+.nova-wallpaper-card span{position:absolute;left:8px;bottom:8px;padding:4px 8px;border-radius:8px;background:rgba(0,0,0,.5);font-size:12px}
+.nova-wallpaper-upload{display:flex;align-items:center;justify-content:center;min-height:110px;border:1px dashed rgba(255,255,255,.25);border-radius:14px;cursor:pointer}

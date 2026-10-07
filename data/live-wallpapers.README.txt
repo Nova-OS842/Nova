@@ -1,0 +1,14 @@
+NOVA LIVE WALLPAPERS
+
+Developer-only MP4 wallpaper storage.
+
+- MP4 files are stored in data/live-wallpapers/
+- Metadata is stored in data/live-wallpapers.json
+- Upload/delete endpoints require an active Developer Bypass server session.
+- Normal accounts and guests can only view/use published wallpapers.
+
+RAILWAY:
+For wallpapers to survive Railway redeploys, mount a persistent Railway Volume
+so the /data directory is backed by persistent storage. Without a persistent
+volume, files written to the container filesystem can be lost when Railway
+recreates the service.
